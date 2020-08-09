@@ -1,0 +1,121 @@
+defaults:
+  ids:
+    leftDriveTalonLeader: 1
+    leftDriveTalonFollower: 2
+    rightDriveTalonLeader: 3
+    rightDriveTalonFollower: 4
+    feeder: 9
+    shooter: 15
+    shooterFollower: 16
+  falcon:
+    stallTorque: 4.69
+    stallCurrent: 257
+    voltage: 12
+    maxRPM: 6380
+    mass: .5
+    diameter: .06
+  T775pro:
+    stallTorque: .71
+    stallCurrent: 134
+    voltage: 12
+    maxRPM: 18700
+    mass: 0.362874
+    diameter: .0423
+  driveGearing: "{{ 1 }}"
+  driveInertia: "{{ .5 * 0.453592 * (.5 * 0.1524 * .5 * 0.1524) }}"
+  shooterGearing: "{{ .48 / 1 }}"
+hideFollowers: false
+driveBase:
+  radius: 0.3145536
+  wheelRadius: 0.07762
+  gearRatio: "{{ 10 +  22 / 25 }}"
+startPosition:
+  x: 1.54
+  y: 5.33
+  heading: 0
+transmissions:
+  - motors:
+      - id: "{{ defaults.ids.leftDriveTalonLeader }}"
+        name: "Left Drive ({{ defaults.ids.leftDriveTalonLeader }})"
+        model: falcon
+        stallTorque: "{{ defaults.falcon.stallTorque }}"
+        stallCurrent: "{{ defaults.falcon.stallCurrent }}"
+        voltage: "{{ defaults.falcon.voltage }}"
+        maxRPM: "{{ defaults.falcon.maxRPM }}"
+        mass: "{{ defaults.falcon.mass }}"
+        diameter: "{{ defaults.falcon.diameter }}"
+        encoderCountsPerRevolution: 2048
+        leftDrive: true
+      - id: "{{ defaults.ids.leftDriveTalonFollower }}"
+        name: "Left Drive Follower ({{ defaults.ids.leftDriveTalonFollower }})"
+        model: falcon
+        stallTorque: "{{ defaults.falcon.stallTorque }}"
+        stallCurrent: "{{ defaults.falcon.stallCurrent }}"
+        voltage: "{{ defaults.falcon.voltage }}"
+        maxRPM: "{{ defaults.falcon.maxRPM }}"
+        mass: "{{ defaults.falcon.mass }}"
+        diameter: "{{ defaults.falcon.diameter }}"
+        encoderCountsPerRevolution: 2048
+        leftDrive: true
+    gearRatio: "{{ defaults.driveGearing }}"
+    efficiency: 1
+  - motors:
+      - id: "{{ defaults.ids.rightDriveTalonLeader }}"
+        name: "Right Drive ({{ defaults.ids.rightDriveTalonLeader }})"
+        model: falcon
+        stallTorque: "{{ defaults.falcon.stallTorque }}"
+        stallCurrent: "{{ defaults.falcon.stallCurrent }}"
+        voltage: "{{ defaults.falcon.voltage }}"
+        maxRPM: "{{ defaults.falcon.maxRPM }}"
+        mass: "{{ defaults.falcon.mass }}"
+        diameter: "{{ defaults.falcon.diameter }}"
+        encoderCountsPerRevolution: 2048
+        rightDrive: true
+      - id: "{{ defaults.ids.rightDriveTalonFollower }}"
+        name: "Right Drive Follower ({{ defaults.ids.rightDriveTalonFollower }})"
+        model: falcon
+        stallTorque: "{{ defaults.falcon.stallTorque }}"
+        stallCurrent: "{{ defaults.falcon.stallCurrent }}"
+        voltage: "{{ defaults.falcon.voltage }}"
+        maxRPM: "{{ defaults.falcon.maxRPM }}"
+        mass: "{{ defaults.falcon.mass }}"
+        diameter: "{{ defaults.falcon.diameter }}"
+        encoderCountsPerRevolution: 2048
+        rightDrive: true
+    gearRatio: "{{ defaults.driveGearing }}"
+    efficiency: 1
+  - motors:
+      - id: "{{ defaults.ids.shooter }}"
+        name: "Shooter ({{ defaults.ids.shooter }})"
+        model: Falcon
+        stallTorque: "{{ defaults.falcon.stallTorque }}"
+        stallCurrent: "{{ defaults.falcon.stallCurrent }}"
+        voltage: "{{ defaults.falcon.voltage }}"
+        maxRPM: "{{ defaults.falcon.maxRPM }}"
+        mass: "{{ defaults.falcon.mass * 10 }}"
+        diameter: "{{ defaults.falcon.diameter }}"
+      - id: "{{ defaults.ids.shooterFollower }}"
+        name: "Shooter ({{ defaults.ids.shooterFollower }})"
+        model: Falcon
+        stallTorque: "{{ defaults.falcon.stallTorque }}"
+        stallCurrent: "{{ defaults.falcon.stallCurrent }}"
+        voltage: "{{ defaults.falcon.voltage }}"
+        maxRPM: "{{ defaults.falcon.maxRPM }}"
+        mass: "{{ defaults.falcon.mass * 10 }}"
+        diameter: "{{ defaults.falcon.diameter }}"
+    gearRatio: "{{ defaults.shooterGearing }}"
+    efficiency: 1.0
+  - motors:
+      - id: "{{ defaults.ids.feeder }}"
+        name: "Feeder ({{ defaults.ids.feeder }})"
+        model: 775Pro
+        stallTorque: "{{ defaults.T775pro.stallTorque }}"
+        stallCurrent: "{{ defaults.T775pro.stallCurrent }}"
+        voltage: "{{ defaults.T775pro.voltage }}"
+        maxRPM: "{{ defaults.T775pro.maxRPM }}"
+        mass: "{{ defaults.T775pro.mass }}"
+        diameter: "{{ defaults.T775pro.diameter }}"
+    gearRatio: 1.0
+    efficiency: 1.0
+
+solenoids: []
